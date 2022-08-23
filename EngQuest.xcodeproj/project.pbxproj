@@ -16,6 +16,7 @@
 		DA0F005A28B1C17A00F86982 /* EngQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F005928B1C17A00F86982 /* EngQuestTests.swift */; };
 		DA0F006428B1C17A00F86982 /* EngQuestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F006328B1C17A00F86982 /* EngQuestUITests.swift */; };
 		DA0F006628B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F006528B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift */; };
+		DACB649428B51B9A0076DA9B /* SwiftBook.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DACB649328B51B9A0076DA9B /* SwiftBook.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		DA0F005F28B1C17A00F86982 /* EngQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0F006328B1C17A00F86982 /* EngQuestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngQuestUITests.swift; sourceTree = "<group>"; };
 		DA0F006528B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngQuestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DACB649328B51B9A0076DA9B /* SwiftBook.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SwiftBook.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		DA0F004128B1C17800F86982 /* EngQuest */ = {
 			isa = PBXGroup;
 			children = (
+				DACB649328B51B9A0076DA9B /* SwiftBook.bundle */,
 				DA0F004228B1C17800F86982 /* AppDelegate.swift */,
 				DA0F004428B1C17800F86982 /* SceneDelegate.swift */,
 				DA0F004628B1C17800F86982 /* ViewController.swift */,
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DACB649428B51B9A0076DA9B /* SwiftBook.bundle in Resources */,
 				DA0F004F28B1C17A00F86982 /* LaunchScreen.storyboard in Resources */,
 				DA0F004C28B1C17A00F86982 /* Assets.xcassets in Resources */,
 				DA0F004A28B1C17800F86982 /* Main.storyboard in Resources */,

@@ -134,15 +134,27 @@ class ViewController: UIViewController {
     
     func getTestData()
     {
-        var raw_data:String
+        var raw_data = ""
         
-        do
-        {
-            try raw_data = String(contentsOfFile: "/Users/jemiway/code/EngQuest/EngQuest/test.txt")
+//            try raw_data = String(contentsOfFile: "/Users/jemiway/code/EngQuest/EngQuest/test.txt")
                                  
-            //print(raw_data)
+        if let url = Bundle.main.url(forResource: "SwiftBook", withExtension: "bundle"), let bundle = Bundle(url: url),let path = bundle.path(forResource: "junior-1200_2", ofType: "txt")
+        {
+            do
+            {
+                try raw_data = String(contentsOfFile: path)
+            }
+            catch
+            {
+                print("出錯了！！無法讀取檔案內容")
+            }
+            
+//            print("raw_data : \(raw_data)")
+        }
+    
+        if raw_data != ""
+        {
             let lines = raw_data.split(separator:"\r\n")
-//            print(lines.count)
             
             for line in lines
             {
@@ -151,14 +163,6 @@ class ViewController: UIViewController {
             }
             print(vocabularyDic)
         }
-        catch
-        {
-            print("出錯了！！無法讀取檔案內容")
-            print("錯誤的理由是:\(error.localizedDescription)")
-        }
     }
-    
-    
-
 }
 
