@@ -16,6 +16,7 @@
 		DA0F005A28B1C17A00F86982 /* EngQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F005928B1C17A00F86982 /* EngQuestTests.swift */; };
 		DA0F006428B1C17A00F86982 /* EngQuestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F006328B1C17A00F86982 /* EngQuestUITests.swift */; };
 		DA0F006628B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F006528B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift */; };
+		DA92730B28B6143200ED74D5 /* senior_7000_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA92730A28B6143200ED74D5 /* senior_7000_1.txt */; };
 		DACB649428B51B9A0076DA9B /* SwiftBook.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DACB649328B51B9A0076DA9B /* SwiftBook.bundle */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		DA0F005F28B1C17A00F86982 /* EngQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0F006328B1C17A00F86982 /* EngQuestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngQuestUITests.swift; sourceTree = "<group>"; };
 		DA0F006528B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngQuestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DA92730A28B6143200ED74D5 /* senior_7000_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = senior_7000_1.txt; sourceTree = "<group>"; };
 		DACB649328B51B9A0076DA9B /* SwiftBook.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SwiftBook.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				DA0F004428B1C17800F86982 /* SceneDelegate.swift */,
 				DA0F004628B1C17800F86982 /* ViewController.swift */,
 				DA0F004828B1C17800F86982 /* Main.storyboard */,
+				DA92730A28B6143200ED74D5 /* senior_7000_1.txt */,
 				DA0F004B28B1C17A00F86982 /* Assets.xcassets */,
 				DA0F004D28B1C17A00F86982 /* LaunchScreen.storyboard */,
 				DA0F005028B1C17A00F86982 /* Info.plist */,
@@ -236,6 +239,7 @@
 			files = (
 				DACB649428B51B9A0076DA9B /* SwiftBook.bundle in Resources */,
 				DA0F004F28B1C17A00F86982 /* LaunchScreen.storyboard in Resources */,
+				DA92730B28B6143200ED74D5 /* senior_7000_1.txt in Resources */,
 				DA0F004C28B1C17A00F86982 /* Assets.xcassets in Resources */,
 				DA0F004A28B1C17800F86982 /* Main.storyboard in Resources */,
 			);
@@ -449,6 +453,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -477,6 +482,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
