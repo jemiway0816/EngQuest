@@ -164,12 +164,12 @@ class ViewController: UIViewController {
     {
         // 隨機取得題目與答案
         let topic = vocabularyDic.randomElement()
-        
+
         questionLabel.text = topic!.key
         answerNum = Int.random(in: 0...3)
-        
+
         var allAnswer:[String] = ["","","",""]
-        
+
         answerButton[answerNum].setTitle(topic!.value, for: .normal)
         allAnswer[answerNum] = topic!.value
         
@@ -294,7 +294,6 @@ class ViewController: UIViewController {
                 let datas:[Substring] = line.split(separator: ",")
                 vocabularyDic[String(datas[0])] = String(datas[1])
             }
-//            print(vocabularyDic)
         }
     }
 }
