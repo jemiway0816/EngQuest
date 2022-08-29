@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet var answerButton: [UIButton]!
     
+    
+    @IBOutlet weak var startOutletButtom: UIButton!
     @IBOutlet weak var resultLabel: UILabel!
     
     @IBOutlet weak var nextButton: UIButton!
@@ -20,15 +22,113 @@ class ViewController: UIViewController {
     @IBOutlet weak var correctLabel: UILabel!
     @IBOutlet weak var wrongLabel: UILabel!
     
+    @IBOutlet weak var timerTextField: UITextField!
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+       
+        answerButton[0].layer.cornerRadius = 30
+        answerButton[1].layer.cornerRadius = 30
+        answerButton[2].layer.cornerRadius = 30
+        answerButton[3].layer.cornerRadius = 30
+        
+        startOutletButtom.layer.cornerRadius = 20
+        resultLabel.layer.cornerRadius = 20
+        
+        timerOn = 0
+        
         getTestData()
         
         onPlay()
     }
 
+
+    func updateUI()
+    {
+        // 顯示預設秒數
+        timerTextField.text = "30"
+        
+        // 顯示按鈕
+        startOutletButtom.setTitle("開始", for: .normal)
+        startOutletButtom.backgroundColor = UIColor(red: 0, green: 122/255, blue: 1, alpha: 1)
+    }
+    
+    var timerOn = 0
+    var seconds = 0
+    var timer: Timer?
+    
+    @IBAction func timerBtmTouchDown(_ sender: Any)
+    {
+        timerTextField.text = ""
+    }
+    @IBAction func timerEndExit(_ sender: Any)
+    {
+        
+    }
+    
+    @objc func countdown(timer: Timer)
+    {
+        seconds -= 1
+        if seconds == 0
+        {
+            // 時間到，顯示訊息框
+            let controller = UIAlertController(title: "計時結束",
+                message: "答對 : \(self.correctNum)題，答錯 : \(self.wrongNum)題",
+                preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            controller.addAction(okAction)
+            present(controller, animated: true, completion: nil)
+            
+            updateUI()
+            
+            timerOn = 0
+            timer.invalidate()
+        }
+        else
+        {
+            // 解包並取得目前秒數
+            if var timerNum = Int(timerTextField.text!)
+            {
+                timerNum -= 1
+                timerTextField.text = String(timerNum)
+            }
+        }
+        
+    }
+    
+    @IBAction func startButton(_ sender: UIButton)
+    {
+        print("timerOn = \(timerOn)")
+        
+        if timerOn == 0
+        {
+            correctNum = 0
+            wrongNum = 0
+            correctLabel.text = "答對 : \(correctNum)"
+            wrongLabel.text = "答錯 : \(wrongNum)"
+            timerOn = 1
+            startOutletButtom.backgroundColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1)
+            
+            startOutletButtom.setTitle("停止", for: .normal)
+            seconds = Int(timerTextField.text!) ?? 30
+            timer = Timer.scheduledTimer(
+                 timeInterval: 1,
+                 target: self,
+                 selector: #selector(countdown(timer:)),
+                 userInfo: nil,
+                 repeats: true)
+        }
+        else
+        {
+            timerOn = 0
+            
+            // 下一秒即時間結束
+            seconds = 1
+            
+            updateUI()
+        }
+    }
+    
     func isSame(_ key:String , _ value:[String]) -> Bool
     {
         return value.contains(key)
@@ -40,8 +140,7 @@ class ViewController: UIViewController {
     
     func onPlay()
     {
-        
-     
+        // 隨機取得題目與答案
         let topic = vocabularyDic.randomElement()
         
         questionLabel.text = topic!.key
@@ -52,6 +151,7 @@ class ViewController: UIViewController {
         answerButton[answerNum].setTitle(topic!.value, for: .normal)
         allAnswer[answerNum] = topic!.value
         
+        // 隨機取得錯誤的答案
         for i in 0...3
         {
             if answerNum != i
@@ -70,6 +170,7 @@ class ViewController: UIViewController {
     
     @IBAction func showResult(_ sender: UIButton)
     {
+        // 偵測按下哪一個按鈕
         var pressNum = 0
         switch sender
         {
@@ -91,19 +192,23 @@ class ViewController: UIViewController {
         
         if answerNum == pressNum
         {
+            // 按下正確答案
             resultLabel.text = " 正確 !! "
-            resultLabel.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            resultLabel.backgroundColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1)
             correctNum += 1
         }
         else
         {
+            // 按下錯誤答案
             resultLabel.text = " 錯誤 >< "
             resultLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
             wrongNum += 1
         }
         
+        // 正確答案背景改為綠色
         answerButton[answerNum].backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
         
+        // 錯誤答案背景改回白色
         for i in 0...3
         {
             if i != answerNum
@@ -113,20 +218,32 @@ class ViewController: UIViewController {
         }
         correctLabel.text = "答對 : \(correctNum)"
         wrongLabel.text = "答錯 : \(wrongNum)"
+        
+        // 若有計時，不需按下一題按鈕即重新出題
+        if (timerOn == 1)
+        {
+            nextQuesion()
+        }
     }
     
-    
-    
-    @IBAction func nextButton(_ sender: UIButton)
+    func nextQuesion()
     {
+        // update UI
         for i in 0...3
         {
             answerButton[i].setTitle("", for: .normal)
-            answerButton[i].backgroundColor = UIColor(red: 50/255, green: 173/255, blue: 230/255, alpha: 1)
+            answerButton[i].backgroundColor = UIColor(red: 0/255, green: 122/255, blue: 1, alpha: 1)
         }
         resultLabel.text = " 請選擇 "
         resultLabel.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        // 重新出題
         onPlay()
+    }
+    
+    @IBAction func nextButton(_ sender: UIButton)
+    {
+        nextQuesion()
     }
     
     
@@ -136,26 +253,7 @@ class ViewController: UIViewController {
     {
         var raw_data = ""
         
-//            try raw_data = String(contentsOfFile: "/Users/jemiway/code/EngQuest/EngQuest/test.txt")
-      
-/*
-        if  let url = Bundle.main.url(forResource: "SwiftBook", withExtension: "bundle"),
-            let bundle = Bundle(url: url),
-            let path = bundle.path(forResource: "junior-1200_2", ofType: "txt")
-        {
-            do
-            {
-                try raw_data = String(contentsOfFile: path)
-            }
-            catch
-            {
-                print("出錯了！！無法讀取檔案內容")
-            }
-            
-//            print("raw_data : \(raw_data)")
-        }
-*/
-        
+        // 從檔案讀取題庫
         if  let url = Bundle.main.url(forResource: "senior_7000_1", withExtension: "txt")
         {
             do
@@ -166,10 +264,9 @@ class ViewController: UIViewController {
             {
                 print("出錯了！！無法讀取檔案內容")
             }
-            
-//            print("raw_data : \(raw_data)")
         }
         
+        // 讀入的檔案存成字典
         if raw_data != ""
         {
             let lines = raw_data.split(separator:"\r\n")
@@ -179,7 +276,7 @@ class ViewController: UIViewController {
                 let datas:[Substring] = line.split(separator: ",")
                 vocabularyDic[String(datas[0])] = String(datas[1])
             }
-            print(vocabularyDic)
+//            print(vocabularyDic)
         }
     }
 }
