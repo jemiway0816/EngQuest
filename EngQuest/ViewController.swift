@@ -14,14 +14,17 @@ class ViewController: UIViewController {
     @IBOutlet var answerButton: [UIButton]!
     
     
+    @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var startOutletButtom: UIButton!
-    @IBOutlet weak var resultLabel: UILabel!
     
     @IBOutlet weak var nextButton: UIButton!
     
+    @IBOutlet weak var downImageView: UIImageView!
+    @IBOutlet weak var upImageView: UIImageView!
     @IBOutlet weak var correctLabel: UILabel!
     @IBOutlet weak var wrongLabel: UILabel!
     
+    @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var timerTextField: UITextField!
     override func viewDidLoad()
     {
@@ -33,9 +36,14 @@ class ViewController: UIViewController {
         answerButton[3].layer.cornerRadius = 30
         
         startOutletButtom.layer.cornerRadius = 20
-        resultLabel.layer.cornerRadius = 20
+        mainImageView.layer.cornerRadius = 30
+        upImageView.layer.cornerRadius = 30
+        downImageView.layer.cornerRadius = 30
+        clearButton.layer.cornerRadius = 30
         
         timerOn = 0
+        
+        clearResult()
         
         getTestData()
         
@@ -96,20 +104,34 @@ class ViewController: UIViewController {
         
     }
     
+    func clearResult()
+    {
+        correctNum = 0
+        wrongNum = 0
+        correctLabel.text = "答對 : \(correctNum)"
+        wrongLabel.text = "答錯 : \(wrongNum)"
+    }
+    
+    @IBAction func clearActBtm(_ sender: Any)
+    {
+        clearResult()
+        nextQuesion()
+    }
+    
     @IBAction func startButton(_ sender: UIButton)
     {
         print("timerOn = \(timerOn)")
         
         if timerOn == 0
         {
-            correctNum = 0
-            wrongNum = 0
-            correctLabel.text = "答對 : \(correctNum)"
-            wrongLabel.text = "答錯 : \(wrongNum)"
             timerOn = 1
+            clearResult()
+
             startOutletButtom.backgroundColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1)
-            
             startOutletButtom.setTitle("停止", for: .normal)
+            
+            nextQuesion()
+            
             seconds = Int(timerTextField.text!) ?? 30
             timer = Timer.scheduledTimer(
                  timeInterval: 1,
@@ -192,18 +214,16 @@ class ViewController: UIViewController {
         
         if answerNum == pressNum
         {
-            // 按下正確答案
-            resultLabel.text = " 正確 !! "
-            resultLabel.backgroundColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1)
             correctNum += 1
         }
         else
         {
             // 按下錯誤答案
-            resultLabel.text = " 錯誤 >< "
-            resultLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+            answerButton[pressNum].backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+            
             wrongNum += 1
         }
+        
         
         // 正確答案背景改為綠色
         answerButton[answerNum].backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
@@ -211,9 +231,9 @@ class ViewController: UIViewController {
         // 錯誤答案背景改回白色
         for i in 0...3
         {
-            if i != answerNum
+            if i != answerNum && i != pressNum
             {
-                answerButton[i].backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                answerButton[i].backgroundColor = UIColor(red: 200/255, green: 223/255, blue: 188/255, alpha: 1)
             }
         }
         correctLabel.text = "答對 : \(correctNum)"
@@ -234,9 +254,7 @@ class ViewController: UIViewController {
             answerButton[i].setTitle("", for: .normal)
             answerButton[i].backgroundColor = UIColor(red: 0/255, green: 122/255, blue: 1, alpha: 1)
         }
-        resultLabel.text = " 請選擇 "
-        resultLabel.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        
+       
         // 重新出題
         onPlay()
     }
