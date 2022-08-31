@@ -42,9 +42,8 @@ class ViewController: UIViewController {
         downImageView.layer.cornerRadius = 30
         clearButton.layer.cornerRadius = 30
         
-        
+     
         clearResult()
-        
         getTestData()
         
         onPlay()
@@ -53,29 +52,9 @@ class ViewController: UIViewController {
 
     func updateUI()
     {
-      
         // 顯示按鈕
         startOutletButtom.setTitle("開始", for: .normal)
         startOutletButtom.backgroundColor = UIColor(red: 0, green: 122/255, blue: 1, alpha: 1)
-    }
-    
-    var quest = 0
-    
-    
-    func countdown(timer: Timer)
-    {
-        
-        // 顯示訊息框
-        let controller = UIAlertController(title: "計時結束",
-                                           message: "答對 : \(self.correctNum)題，答錯 : \(self.wrongNum)題",
-                                           preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        controller.addAction(okAction)
-        present(controller, animated: true, completion: nil)
-        
-        updateUI()
-        
-        
     }
     
     func clearResult()
@@ -84,33 +63,60 @@ class ViewController: UIViewController {
         wrongNum = 0
         correctLabel.text = "答對 : \(correctNum)"
         wrongLabel.text = "答錯 : \(wrongNum)"
+        
+        questIndex = 10
+        questLbl.text = String(questIndex)
+        
+        nextButton.isEnabled = false
+        
+        questionLabel.isHidden = true
+        answerButton[0].isHidden = true
+        answerButton[1].isHidden = true
+        answerButton[2].isHidden = true
+        answerButton[3].isHidden = true
     }
     
     @IBAction func clearActBtm(_ sender: Any)
     {
-        clearResult()
-        nextQuesion()
+        let controller = UIAlertController(title: "是否重新開始",
+                message: "", preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "是的", style: .default)
+        {
+            _
+            in
+            self.clearResult()
+            self.nextQuesion()
+        }
+        controller.addAction(okAction)
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+
+        present(controller, animated: true, completion: nil)
     }
     
-    
+    var answerNum = 0
+    var correctNum = 0
+    var wrongNum = 0
+    var questIndex = 10
     
     @IBAction func startButton(_ sender: UIButton)
     {
-        var questIndex = Int(questLbl.text!) ?? 10
+        clearResult()
+        nextQuesion()
         
-        questLbl.text
-        
-        
+        questionLabel.isHidden = false
+        answerButton[0].isHidden = false
+        answerButton[1].isHidden = false
+        answerButton[2].isHidden = false
+        answerButton[3].isHidden = false
     }
     
     func isSame(_ key:String , _ value:[String]) -> Bool
     {
         return value.contains(key)
     }
-    
-    var answerNum = 0
-    var correctNum = 0
-    var wrongNum = 0
     
     func onPlay()
     {
@@ -176,7 +182,6 @@ class ViewController: UIViewController {
             wrongNum += 1
         }
         
-        
         // 正確答案背景改為綠色
         answerButton[answerNum].backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
         
@@ -191,6 +196,16 @@ class ViewController: UIViewController {
         correctLabel.text = "答對 : \(correctNum)"
         wrongLabel.text = "答錯 : \(wrongNum)"
         
+        if questIndex == 1
+        {
+            performSegue(withIdentifier: "showScore", sender: nil)
+            clearResult()
+    
+        }
+        else
+        {
+            nextButton.isEnabled = true
+        }
     }
     
     func nextQuesion()
@@ -208,9 +223,23 @@ class ViewController: UIViewController {
     
     @IBAction func nextButton(_ sender: UIButton)
     {
+        questIndex -= 1
+        questLbl.text = String(questIndex)
+        
         nextQuesion()
+
+        nextButton.isEnabled = false
     }
         
+    @IBSegueAction func showSegue(_ coder: NSCoder) -> ResultViewController?
+    {
+        let controller = ResultViewController(coder: coder)
+        controller?.currentNum = correctNum
+        controller?.wrongNum = wrongNum
+        return controller
+    }
+
+    
     var vocabularyDic:[String:String] = ["":""]
     
     func getTestData()

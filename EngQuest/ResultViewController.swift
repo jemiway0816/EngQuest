@@ -9,13 +9,22 @@ import UIKit
 
 class ResultViewController: UIViewController {
 
-    override func viewDidLoad() {
+    @IBOutlet weak var resultLbl: UILabel!
+    @IBOutlet weak var backImgView: UIImageView!
+    @IBOutlet weak var scoreLbl: UILabel!
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        backImgView.layer.cornerRadius = 30
+        
+        resultLbl.text = "答對\(currentNum)題 , 答錯\(wrongNum)題"
+        scoreLbl.text = String(currentNum * 10)
     }
     
-
+    var currentNum = 0
+    var wrongNum = 0
+    
     /*
     // MARK: - Navigation
 
