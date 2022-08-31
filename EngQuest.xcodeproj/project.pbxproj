@@ -16,6 +16,7 @@
 		DA0F005A28B1C17A00F86982 /* EngQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F005928B1C17A00F86982 /* EngQuestTests.swift */; };
 		DA0F006428B1C17A00F86982 /* EngQuestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F006328B1C17A00F86982 /* EngQuestUITests.swift */; };
 		DA0F006628B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0F006528B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift */; };
+		DA6BEFFF28BEEF380085E7B4 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6BEFFE28BEEF380085E7B4 /* ResultViewController.swift */; };
 		DA90C82228BCA88A00351E13 /* images.png in Resources */ = {isa = PBXBuildFile; fileRef = DA90C82128BCA88900351E13 /* images.png */; };
 		DA92730B28B6143200ED74D5 /* senior_7000_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA92730A28B6143200ED74D5 /* senior_7000_1.txt */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,7 @@
 		DA0F005F28B1C17A00F86982 /* EngQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0F006328B1C17A00F86982 /* EngQuestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngQuestUITests.swift; sourceTree = "<group>"; };
 		DA0F006528B1C17A00F86982 /* EngQuestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngQuestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DA6BEFFE28BEEF380085E7B4 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		DA90C82128BCA88900351E13 /* images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = images.png; sourceTree = "<group>"; };
 		DA92730A28B6143200ED74D5 /* senior_7000_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = senior_7000_1.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 				DA90C82128BCA88900351E13 /* images.png */,
 				DA0F004428B1C17800F86982 /* SceneDelegate.swift */,
 				DA0F004628B1C17800F86982 /* ViewController.swift */,
+				DA6BEFFE28BEEF380085E7B4 /* ResultViewController.swift */,
 				DA0F004828B1C17800F86982 /* Main.storyboard */,
 				DA92730A28B6143200ED74D5 /* senior_7000_1.txt */,
 				DA0F004B28B1C17A00F86982 /* Assets.xcassets */,
@@ -269,6 +272,7 @@
 				DA0F004728B1C17800F86982 /* ViewController.swift in Sources */,
 				DA0F004328B1C17800F86982 /* AppDelegate.swift in Sources */,
 				DA0F004528B1C17800F86982 /* SceneDelegate.swift in Sources */,
+				DA6BEFFF28BEEF380085E7B4 /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

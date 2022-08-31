@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet var answerButton: [UIButton]!
     
     
+    @IBOutlet weak var questLbl: UILabel!
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var startOutletButtom: UIButton!
     
@@ -25,7 +26,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var wrongLabel: UILabel!
     
     @IBOutlet weak var clearButton: UIButton!
-    @IBOutlet weak var timerTextField: UITextField!
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -41,7 +42,6 @@ class ViewController: UIViewController {
         downImageView.layer.cornerRadius = 30
         clearButton.layer.cornerRadius = 30
         
-        timerOn = 0
         
         clearResult()
         
@@ -53,54 +53,28 @@ class ViewController: UIViewController {
 
     func updateUI()
     {
-        // 顯示預設秒數
-        timerTextField.text = "30"
-        
+      
         // 顯示按鈕
         startOutletButtom.setTitle("開始", for: .normal)
         startOutletButtom.backgroundColor = UIColor(red: 0, green: 122/255, blue: 1, alpha: 1)
     }
     
-    var timerOn = 0
-    var seconds = 0
-    var timer: Timer?
+    var quest = 0
     
-    @IBAction func timerBtmTouchDown(_ sender: Any)
-    {
-        timerTextField.text = ""
-    }
-    @IBAction func timerEndExit(_ sender: Any)
+    
+    func countdown(timer: Timer)
     {
         
-    }
-    
-    @objc func countdown(timer: Timer)
-    {
-        seconds -= 1
-        if seconds == 0
-        {
-            // 時間到，顯示訊息框
-            let controller = UIAlertController(title: "計時結束",
-                message: "答對 : \(self.correctNum)題，答錯 : \(self.wrongNum)題",
-                preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            controller.addAction(okAction)
-            present(controller, animated: true, completion: nil)
-            
-            updateUI()
-            
-            timerOn = 0
-            timer.invalidate()
-        }
-        else
-        {
-            // 解包並取得目前秒數
-            if var timerNum = Int(timerTextField.text!)
-            {
-                timerNum -= 1
-                timerTextField.text = String(timerNum)
-            }
-        }
+        // 顯示訊息框
+        let controller = UIAlertController(title: "計時結束",
+                                           message: "答對 : \(self.correctNum)題，答錯 : \(self.wrongNum)題",
+                                           preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        controller.addAction(okAction)
+        present(controller, animated: true, completion: nil)
+        
+        updateUI()
+        
         
     }
     
@@ -118,37 +92,15 @@ class ViewController: UIViewController {
         nextQuesion()
     }
     
+    
+    
     @IBAction func startButton(_ sender: UIButton)
     {
-        print("timerOn = \(timerOn)")
+        var questIndex = Int(questLbl.text!) ?? 10
         
-        if timerOn == 0
-        {
-            timerOn = 1
-            clearResult()
-
-            startOutletButtom.backgroundColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1)
-            startOutletButtom.setTitle("停止", for: .normal)
-            
-            nextQuesion()
-            
-            seconds = Int(timerTextField.text!) ?? 30
-            timer = Timer.scheduledTimer(
-                 timeInterval: 1,
-                 target: self,
-                 selector: #selector(countdown(timer:)),
-                 userInfo: nil,
-                 repeats: true)
-        }
-        else
-        {
-            timerOn = 0
-            
-            // 下一秒即時間結束
-            seconds = 1
-            
-            updateUI()
-        }
+        questLbl.text
+        
+        
     }
     
     func isSame(_ key:String , _ value:[String]) -> Bool
@@ -239,11 +191,6 @@ class ViewController: UIViewController {
         correctLabel.text = "答對 : \(correctNum)"
         wrongLabel.text = "答錯 : \(wrongNum)"
         
-        // 若有計時，不需按下一題按鈕即重新出題
-        if (timerOn == 1)
-        {
-            nextQuesion()
-        }
     }
     
     func nextQuesion()
@@ -263,8 +210,7 @@ class ViewController: UIViewController {
     {
         nextQuesion()
     }
-    
-    
+        
     var vocabularyDic:[String:String] = ["":""]
     
     func getTestData()
