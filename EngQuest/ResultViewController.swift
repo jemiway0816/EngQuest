@@ -7,23 +7,48 @@
 
 import UIKit
 
-class ResultViewController: UIViewController {
+class ResultViewController: UIViewController, UITableViewDataSource
+{
 
     @IBOutlet weak var resultLbl: UILabel!
     @IBOutlet weak var backImgView: UIImageView!
     @IBOutlet weak var scoreLbl: UILabel!
+    @IBOutlet var questTableView: UITableView!
+    
+    @IBOutlet var questCell: UITableViewCell!
+    weak var ViewController:ViewController!
+    
+    var currentNum = 0
+    var wrongNum = 0
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
         backImgView.layer.cornerRadius = 30
-        
         resultLbl.text = "答對\(currentNum)題 , 答錯\(wrongNum)題"
-        scoreLbl.text = String(currentNum * 10)
+        
+        let allNum = currentNum + wrongNum
+        
+        scoreLbl.text = String(currentNum * 100 / allNum)
+        
+        questTableView.dataSource = self
+        
+        print(ViewController.questTable[10].cht)
     }
     
-    var currentNum = 0
-    var wrongNum = 0
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+//        let cell = questCell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        
+        return cell
+    }
     
     /*
     // MARK: - Navigation

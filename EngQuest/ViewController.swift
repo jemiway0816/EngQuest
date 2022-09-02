@@ -12,21 +12,31 @@ class ViewController: UIViewController {
  
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet var answerButton: [UIButton]!
-    
-    
     @IBOutlet weak var questLbl: UILabel!
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var startOutletButtom: UIButton!
-    
     @IBOutlet weak var nextButton: UIButton!
-    
     @IBOutlet weak var downImageView: UIImageView!
     @IBOutlet weak var upImageView: UIImageView!
     @IBOutlet weak var correctLabel: UILabel!
     @IBOutlet weak var wrongLabel: UILabel!
-    
     @IBOutlet weak var clearButton: UIButton!
 
+    var answerNum = 0
+    var correctNum = 0
+    var wrongNum = 0
+    var questIndex = 10
+    var vocabularyDic:[String:String] = ["":""]
+    var questTable = [quest]()
+    
+    struct quest
+    {
+        var index = 0
+        var eng = ""
+        var cht = ""
+        var result = 0
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -42,13 +52,14 @@ class ViewController: UIViewController {
         downImageView.layer.cornerRadius = 30
         clearButton.layer.cornerRadius = 30
         
-     
+        
+        
+        
         clearResult()
         getTestData()
         
         onPlay()
     }
-
 
     func updateUI()
     {
@@ -96,11 +107,6 @@ class ViewController: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    var answerNum = 0
-    var correctNum = 0
-    var wrongNum = 0
-    var questIndex = 10
-    
     @IBAction func startButton(_ sender: UIButton)
     {
         clearResult()
@@ -122,7 +128,7 @@ class ViewController: UIViewController {
     {
         // 隨機取得題目與答案
         let topic = vocabularyDic.randomElement()
-
+        
         questionLabel.text = topic!.key
         answerNum = Int.random(in: 0...3)
 
@@ -130,6 +136,10 @@ class ViewController: UIViewController {
 
         answerButton[answerNum].setTitle(topic!.value, for: .normal)
         allAnswer[answerNum] = topic!.value
+        
+        questTable[questIndex].index = questIndex
+        questTable[questIndex].eng = topic!.key
+        questTable[questIndex].cht = topic!.value
         
         // 隨機取得錯誤的答案
         for i in 0...3
@@ -146,6 +156,7 @@ class ViewController: UIViewController {
                 answerButton[i].setTitle(wrong!.value, for: .normal)
             }
         }
+
     }
     
     @IBAction func showResult(_ sender: UIButton)
@@ -173,6 +184,7 @@ class ViewController: UIViewController {
         if answerNum == pressNum
         {
             correctNum += 1
+            questTable[questIndex].result = 0  // 記錄答對
         }
         else
         {
@@ -180,6 +192,7 @@ class ViewController: UIViewController {
             answerButton[pressNum].backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
             
             wrongNum += 1
+            questTable[questIndex].result = 1   // 記錄答錯
         }
         
         // 正確答案背景改為綠色
@@ -196,11 +209,12 @@ class ViewController: UIViewController {
         correctLabel.text = "答對 : \(correctNum)"
         wrongLabel.text = "答錯 : \(wrongNum)"
         
+        
+        // 要顯示Score畫面
         if questIndex == 1
         {
             performSegue(withIdentifier: "showScore", sender: nil)
             clearResult()
-    
         }
         else
         {
@@ -239,9 +253,6 @@ class ViewController: UIViewController {
         return controller
     }
 
-    
-    var vocabularyDic:[String:String] = ["":""]
-    
     func getTestData()
     {
         var raw_data = ""
@@ -271,5 +282,12 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        let scoreVC = segue.destination as! ResultViewController
+        scoreVC.ViewController = self
+    }
 }
+
 
