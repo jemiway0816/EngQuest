@@ -9,13 +9,11 @@ import UIKit
 
 class ResultViewController: UIViewController, UITableViewDataSource
 {
-
     @IBOutlet weak var resultLbl: UILabel!
     @IBOutlet weak var backImgView: UIImageView!
     @IBOutlet weak var scoreLbl: UILabel!
     @IBOutlet var questTableView: UITableView!
     
-    @IBOutlet var questCell: UITableViewCell!
     weak var ViewController:ViewController!
     
     var currentNum = 0
@@ -34,19 +32,30 @@ class ResultViewController: UIViewController, UITableViewDataSource
         
         questTableView.dataSource = self
         
-        print(ViewController.questTable[10].cht)
+//        print(ViewController.questTable[10].cht)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 1
+        return ViewController.questTable.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-//        let cell = questCell!
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
         
+        let quest = ViewController.questTable[indexPath.row]
+        cell.textLabel?.text = quest.eng
+        cell.detailTextLabel?.text = quest.cht
+        
+        if quest.result == 1
+        {
+            cell.backgroundColor = .red
+        }
         return cell
     }
     

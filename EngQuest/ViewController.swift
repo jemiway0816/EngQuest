@@ -27,8 +27,24 @@ class ViewController: UIViewController {
     var wrongNum = 0
     var questIndex = 10
     var vocabularyDic:[String:String] = ["":""]
-    var questTable = [quest]()
     
+    var questTable = Array(repeating: quest(), count: 10)
+    
+/*
+    var questTable =
+    [
+            quest(index: 1, eng: "", cht: "", result: 0),
+            quest(index: 2, eng: "", cht: "", result: 0),
+            quest(index: 3, eng: "", cht: "", result: 0),
+            quest(index: 4, eng: "", cht: "", result: 0),
+            quest(index: 5, eng: "", cht: "", result: 0),
+            quest(index: 6, eng: "", cht: "", result: 0),
+            quest(index: 7, eng: "", cht: "", result: 0),
+            quest(index: 8, eng: "", cht: "", result: 0),
+            quest(index: 9, eng: "", cht: "", result: 0),
+            quest(index: 10, eng: "", cht: "", result: 0)
+    ]
+*/
     struct quest
     {
         var index = 0
@@ -51,9 +67,6 @@ class ViewController: UIViewController {
         upImageView.layer.cornerRadius = 30
         downImageView.layer.cornerRadius = 30
         clearButton.layer.cornerRadius = 30
-        
-        
-        
         
         clearResult()
         getTestData()
@@ -137,9 +150,9 @@ class ViewController: UIViewController {
         answerButton[answerNum].setTitle(topic!.value, for: .normal)
         allAnswer[answerNum] = topic!.value
         
-        questTable[questIndex].index = questIndex
-        questTable[questIndex].eng = topic!.key
-        questTable[questIndex].cht = topic!.value
+        questTable[10-questIndex].index = questIndex
+        questTable[10-questIndex].eng = topic!.key
+        questTable[10-questIndex].cht = topic!.value
         
         // 隨機取得錯誤的答案
         for i in 0...3
@@ -184,7 +197,7 @@ class ViewController: UIViewController {
         if answerNum == pressNum
         {
             correctNum += 1
-            questTable[questIndex].result = 0  // 記錄答對
+            questTable[10-questIndex].result = 0  // 記錄答對
         }
         else
         {
@@ -192,7 +205,7 @@ class ViewController: UIViewController {
             answerButton[pressNum].backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
             
             wrongNum += 1
-            questTable[questIndex].result = 1   // 記錄答錯
+            questTable[10-questIndex].result = 1   // 記錄答錯
         }
         
         // 正確答案背景改為綠色
